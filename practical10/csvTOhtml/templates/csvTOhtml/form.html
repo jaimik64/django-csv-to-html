@@ -41,6 +41,11 @@
         
     </head>
     <body>
+        <div style="margin-right: 3%; margin-left: 3%; margin-top: 3%;">
+            <div class="alert alert-danger" role="alert" >
+                <b>Note : </b>Upload CSV Files Only.
+            </div>    
+        </div>
         <div class="box">
             <h2 class="title">CSV to HTML Table</h2> <hr/>
             <form method="POST" action="#table" enctype="multipart/form-data" >
@@ -59,28 +64,32 @@
                 </center>
             </form>    
         </div>
-        <div class="table-responsive" id="table" style="padding-left: 5%;padding-right: 5%;">
-            {% if details %}
-            <h2 class="title"> Displaying Details </h2>
-            <table class="table table-bordered table-hover">
-                <tr class="thead-dark">
-                    <th>Employee Id</th>
-                    <th>Total Days</th>
-                    <th>Present Days</th>
-                    <th>Percentage</th>
-                </tr>
-                {% for i in details %}
-                    <tr>
-                        <td>{{ i.0 }}</td>
-                        <td>{{ i.1 }} </td>
-                        <td>{{ i.2 }}</td>
-                        <td>{{ i.3 }}%</td>
+        {% if check %}
+            <div class="table-responsive" id="table" style="padding-left: 5%;padding-right: 5%;">
+                {% if details %}
+                <h2 class="title"> Displaying Details </h2>
+                <table class="table table-bordered table-hover">
+                    <tr class="thead-dark">
+                        <th>Employee Id</th>
+                        <th>Total Days</th>
+                        <th>Present Days</th>
+                        <th>Percentage</th>
                     </tr>
-                {% endfor %}
-            </table>
-            {% else %}
-                <h2 class="title">Submit Form. Here You'll See Detailed Table About Employee Attendance.</h2>
-            {% endif %}
-        </div>
+                    {% for i in details %}
+                        <tr>
+                            <td>{{ i.0 }}</td>
+                            <td>{{ i.1 }} </td>
+                            <td>{{ i.2 }}</td>
+                            <td>{{ i.3 }}%</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                    <h2 class="title">Submit Form. Here You'll See Detailed Table About Employee Attendance.</h2>
+                {% endif %}
+            </div>
+        {% else %}
+            <h2 class="title">Submit Form. Here You'll See Detailed Table About Employee Attendance.</h2>
+        {% endif %}
     </body>
 </html>
