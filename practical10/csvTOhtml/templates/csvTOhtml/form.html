@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>Convert CSV File to HTML Table</title>
+        <style>
+            .box{
+                margin: 5%;
+                padding: 5%;
+                border: 2px dashed black;
+                border-radius: 5px;
+            }
+            .title{
+                text-align: center;
+                padding-bottom: 3%;
+            }
+            #day{
+                margin-top: 3%;
+            }
+            #cen{
+                margin-top: 3%;
+            }
+            #box hr{
+                border: 2px solid black;
+                width: 100%;
+            }
+            #box form{
+                padding: 2%;
+            }
+        </style>
+         <meta name="viewport" content="width=device-width, initial-scale=1">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+         <!-- Latest compiled and minified CSS -->
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+             integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     
+         <!-- Latest compiled and minified JavaScript -->
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+             crossorigin="anonymous"></script>
+        
+    </head>
+    <body>
+        <div class="box">
+            <h2 class="title">CSV to HTML Table</h2> <hr/>
+            <form method="POST" action="#table" enctype="multipart/form-data" >
+                {% csrf_token %}
+                <div class="custom-file">
+                    <label for="file1" class="custom-file-label">Upload File Here.</label>
+                    <input type="file" required="True" name="csvfile" class="custom-file-input" id="file1"/>  
+                </div>
+    
+                <div class="form-group" id="day">
+                    <label for="n">Enter Number of Total Days : </label>
+                    <input type="number" name="days" class="form-control" min="1" required/>    
+                </div>
+                <center id="cen">
+                    <button name="convert" id="cen" class="btn btn-primary">Convert To HTML Table</button>
+                </center>
+            </form>    
+        </div>
+        <div class="table-responsive" id="table" style="padding-left: 5%;padding-right: 5%;">
+            {% if details %}
+            <h2 class="title"> Displaying Details </h2>
+            <table class="table table-bordered table-hover">
+                <tr class="thead-dark">
+                    <th>Employee Id</th>
+                    <th>Total Days</th>
+                    <th>Present Days</th>
+                    <th>Percentage</th>
+                </tr>
+                {% for i in details %}
+                    <tr>
+                        <td>{{ i.0 }}</td>
+                        <td>{{ i.1 }} </td>
+                        <td>{{ i.2 }}</td>
+                        <td>{{ i.3 }}%</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+                <h2 class="title">Submit Form. Here You'll See Detailed Table About Employee Attendance.</h2>
+            {% endif %}
+        </div>
+    </body>
+</html>
